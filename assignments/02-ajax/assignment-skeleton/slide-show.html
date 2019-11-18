@@ -90,24 +90,53 @@
             const nextButton = document.getElementById('nextButton');
 
             // TODO the memes array should be filled with the meme objects from the API
-            let memes = [
-                {
-                    url: 'https://www.naturalworldsafaris.com/media/3925/kamchatka-sophy-roberts.jpg',
-                    width: 1920,
-                    height: 1080,
-                    name: 'Kamchatka'
-                },{
-                    url: 'https://www.explora.com/wp-content/uploads/2015/02/foto-1.jpg',
-                    width: 1440,
-                    height: 720,
-                    name: 'Patagonia'
-                },{
-                    url: 'http://wallsdesk.com/wp-content/uploads/2016/05/Zhangjiajie-National-Forest-Park-China-Wallpaper-.jpg',
-                    width: 1920,
-                    height: 1200
-                }
-            ]
+            // let memes = [
+            //     {
+            //         url: 'https://www.naturalworldsafaris.com/media/3925/kamchatka-sophy-roberts.jpg',
+            //         width: 1920,
+            //         height: 1080,
+            //         name: 'Kamchatka'
+            //     },{
+            //         url: 'https://www.explora.com/wp-content/uploads/2015/02/foto-1.jpg',
+            //         width: 1440,
+            //         height: 720,
+            //         name: 'Patagonia'
+            //     },{
+            //         url: 'http://wallsdesk.com/wp-content/uploads/2016/05/Zhangjiajie-National-Forest-Park-China-Wallpaper-.jpg',
+            //         width: 1920,
+            //         height: 1200
+            //     }
+            // ]
+            var memes = {};
+            // async function getData() {
+            //         let response = await fetch("https://api.imgflip.com/get_memes")
+            //         const data = await response.json()
+            //         console.log(data);
+            //         return data;
+            // };    
+            
+            fetch("https://api.imgflip.com/get_memes", {mode: 'cors'})
+             .then(response => {
+                 console.log('body: ' +response.blob())
+                 return response.json();
+              })
+             .then(data => {
+                 memes = data;
+                 //console.log(JSON.toString(memes));
+                 const newImage = document.createElement('img');
+
+                 //const d = document.getElementById('slideShowImages');
+                 for (var m in memes){
+                    //console.log(JSON.toString(memes[m]));
+                    const objectURL = URL.createObjectURL(data);
+                    console.log(objectURL);
+                    //d.innerHTML = memes[m];
+                   }
+             })
+             .catch(error => console.log(error)) 
+
             const numberOfImages = () => memes.length;
+            //console.log('numberOfImage: ' + numberOfImages);
             // this is a counter that holds the id/number of the currently displayed image.
             let currentImageID = 1;
   
@@ -122,7 +151,7 @@
             function showImage(number) {
             	let meme = memes[number]
 				document.getElementById('slideShowImages').innerHTML = ''
-				document.getElementById('slideShowImages').append(renderImage(meme.url, meme.width, meme.height, meme.name))
+				//document.getElementById('slideShowImages').append(renderImage(meme.url, meme.width, meme.height, meme.name))
 
                 console.log(`showing image ${number}`)
             }
@@ -157,8 +186,9 @@
             /**
             (re)loads the images for the current filter config
             */
-            function loadImageUrls() {
+            function loadImageUrls(element) {
                 // TODO load meme template images from the Imgflip API
+                //var imgURL = URL.createObjectURL();
                 showImage(0)
             }
 

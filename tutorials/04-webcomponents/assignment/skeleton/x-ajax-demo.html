@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script type=module src="https://unpkg.com/@google-web-components/google-chart/google-chart.js?module"></script>
     <script>
         class AjaxEchoElement extends HTMLElement {
             constructor () {
@@ -15,6 +16,7 @@
                     pre.appendChild(document.createTextNode(JSON.stringify(e.detail, null, 4)))
                     this.appendChild(pre);
                     // TODO make the Google Chart display the response's data
+
                 }, true);
             }
         }
@@ -36,13 +38,16 @@
     </script>
 </head>
 <body>
-<x-ajax-echo>
+<google-chart options='{"title": "Omm assignment submission WS1819"}'
+        data='[["tutorial session", "MMN major subject","MMN minor subject"], ["1", 28,5],["2",25,3],["3",22,2],["4",18,4],["5",15,3],["6",11,2],["7",10,1],["8",5,0]]'>
+></google-chart>
+<!-- <x-ajax-echo>
     <x-ajax url="http://httpbin.org/get"></x-ajax>
-    <!-- TODO add a line chart -->
-</x-ajax-echo>
+    TODO add a line chart 
+</x-ajax-echo> -->
 
-<x-ajax-echo>
+<!-- <x-ajax-echo>
     <x-ajax url="http://httpbin.org/post" method="post"></x-ajax>
-</x-ajax-echo>
+</x-ajax-echo> --> 
 </body>
 </html>

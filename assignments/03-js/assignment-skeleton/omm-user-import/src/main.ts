@@ -17,12 +17,9 @@ class Database {
   public store(user: User) {
   // TODO: complete the following code to store the given user into
   // this.users, then render the given user via this.displayUsers().
-
-
-
-
-
-
+    this.users.forEach(function(element){
+         
+    });
   }
 
   public displayUsers(){
@@ -65,13 +62,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
     response.json().then((users: User[]) => {
       // TODO: handle the response and parse it into User class, then select
       // all adults (age > 18) and save them in selected array.
-
-
-
-
-
-
-
+      users.forEach(element => {
+        if(element.age >18){
+          selected.push(element);
+        }
+      });
     });
   });
 
